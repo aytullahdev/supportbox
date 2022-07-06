@@ -7,7 +7,7 @@ const Header = () => {
     <div className="grid grid-cols-2">
       <div className="">
         <div className=" flex space-x-1 justify-start items-center lg:space-x-4">
-          <FaBuromobelexperte className="text-4xl text-lg-4xl text-orange-400" />
+          <FaBuromobelexperte className="text-4xl text-lg-4xl hover:animate-spin text-orange-400" />
           <Link to="/" className="lg:text-xl text-md font-semibold">
             Session Box
           </Link>

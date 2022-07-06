@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BiUserPlus } from "react-icons/bi";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 const Register = () => {
   const [fromData, setFromData] = useState({
     name: "",
@@ -74,7 +75,7 @@ const Register = () => {
           <div>
             <label class="block">
               <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
-                Password
+                Confirm Password
               </span>
               <input
                 type="password"
@@ -90,6 +91,9 @@ const Register = () => {
             <button className="py-4 px-10 bg-blue-600 text-white font-semibold rounded hover:bg-blue-800">
               Create a new account
             </button>
+          </div>
+          <div>
+            <Link to="/login" className=" underline text-sm text-blue-400">Already have an account?</Link>
           </div>
         </div>
       </form>

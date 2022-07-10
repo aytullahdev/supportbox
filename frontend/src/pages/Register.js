@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import {useSelector,useDispatch} from 'react-redux'
 import { register } from "../features/auth/authSlice";
 import { reset } from "../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
   const dispatch = useDispatch();
   const {user,isLoading,isError,message,isSuccess}=useSelector(state=>state.auth);
-
+  const navigate = useNavigate();
   const [fromData, setFromData] = useState({
     name: "",
     email: "",
@@ -35,8 +36,10 @@ const Register = () => {
     }
     if(isSuccess && user){
         toast.success("Login Sucessfull");
-        dispatch(reset());
+        navigate('/');
+       
     }
+    dispatch(reset());
   },[isError,isLoading,user,isSuccess,message,dispatch]);
   const onChange = (e) => {
     setFromData((prev) => ({ ...prev, [e.target.name]: e.target.value }));

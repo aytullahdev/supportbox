@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiUserPlus } from "react-icons/bi";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import {useSelector,useDispatch} from 'react-redux'
+import { register } from "../features/auth/authSlice";
+import { reset } from "../features/auth/authSlice";
 const Register = () => {
+  const dispatch = useDispatch();
+  const {user,isLoading,isError,message,isSuccess}=useSelector(state=>state.auth);
+
   const [fromData, setFromData] = useState({
     name: "",
     email: "",
@@ -12,19 +18,36 @@ const Register = () => {
   const { name, email, password, cpassword } = fromData;
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (cpassword != password) {
+    if (cpassword !== password) {
       toast.error("Password Doesn't Match!");
+    }else{
+      const userData = {
+        name,
+        email,
+        password
+      }
+      dispatch(register(userData));
     }
   };
+  useEffect(()=>{
+    if(isError){
+       toast.error(message);
+    }
+    if(isSuccess && user){
+        toast.success("Login Sucessfull");
+        dispatch(reset());
+    }
+  },[isError,isLoading,user,isSuccess,message,dispatch]);
   const onChange = (e) => {
     setFromData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <div className="text-3xl font-thin text-center py-5 flex justify-center items-center space-x-4">
           <BiUserPlus />
-          <span> User Registration</span>
+          <span> User Registration </span>
         </div>
         <div className="flex flex-col justify-center  space-y-5 lg:w-1/3 mx-auto ">
           <div>

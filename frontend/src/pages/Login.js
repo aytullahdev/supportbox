@@ -2,16 +2,28 @@ import React, { useState } from "react";
 import { BiLogIn } from "react-icons/bi";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../features/auth/authSlice";
 const Login = () => {
+  const dispatch = useDispatch();
   const [fromData, setFromData] = useState({
-    name: "",
     email: "",
     password: "",
-    cpassword: "",
   });
   const { email, password } = fromData;
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(email.length==0 || password.length==0){
+       toast.warning("Please fillup all the input fields");
+       return ;
+    }else{
+       const userData ={
+         email,
+         password
+       }
+       dispatch(login(userData));
+
+    }
    
   };
   const onChange = (e) => {
@@ -24,7 +36,7 @@ const Login = () => {
           <BiLogIn />
           <span> User Login</span>
         </div>
-        <div className="flex flex-col justify-center  space-y-5 lg:w-1/3 mx-auto ">
+        <div className="flex flex-col justify-center  space-y-5 md:w-2/3 lg:w-1/3 mx-auto ">
           
           <div>
             <label class="block">

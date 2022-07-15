@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { BiUserPlus } from "react-icons/bi";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import {useSelector,useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 import { register } from "../features/auth/authSlice";
 import { reset } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 const Register = () => {
   const dispatch = useDispatch();
-  const {user,isLoading,isError,message,isSuccess}=useSelector(state=>state.auth);
+  const { user, isLoading, isError, message, isSuccess } = useSelector(
+    (state) => state.auth
+  );
   const navigate = useNavigate();
   const [fromData, setFromData] = useState({
     name: "",
@@ -21,26 +23,25 @@ const Register = () => {
     e.preventDefault();
     if (cpassword !== password) {
       toast.error("Password Doesn't Match!");
-    }else{
+    } else {
       const userData = {
         name,
         email,
-        password
-      }
+        password,
+      };
       dispatch(register(userData));
     }
   };
-  useEffect(()=>{
-    if(isError){
-       toast.error(message);
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
     }
-    if(isSuccess && user){
-        toast.success("Login Sucessfull");
-        navigate('/');
-       
+    if (isSuccess && user) {
+      toast.success("Login Sucessfull");
+      navigate("/");
     }
     dispatch(reset());
-  },[isError,isLoading,user,isSuccess,message,dispatch]);
+  }, [isError, user, isSuccess, message, dispatch]);
   const onChange = (e) => {
     setFromData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -114,12 +115,28 @@ const Register = () => {
             </label>
           </div>
           <div>
-            <button className="py-4 px-10 bg-blue-600 text-white font-semibold rounded hover:bg-blue-800">
+            <button className="py-4 px-10 bg-blue-600 text-white font-semibold rounded hover:bg-blue-800 flex space-x-2 text-sm" disabled={isLoading}>
+              {isLoading && (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5 animate-spin mr-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              )}
               Create a new account
             </button>
           </div>
           <div>
-            <Link to="/login" className=" underline text-sm text-blue-400">Already have an account?</Link>
+            <Link to="/login" className=" underline text-sm text-blue-400">
+              Already have an account?
+            </Link>
           </div>
         </div>
       </form>

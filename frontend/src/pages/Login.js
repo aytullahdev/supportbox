@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { BiLogIn } from "react-icons/bi";
 import { toast } from "react-toastify";
-import { Link,useNavigate } from "react-router-dom";
+import { Link,useLocation,useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login, reset } from "../features/auth/authSlice";
 const Login = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const { user, isLoading, isError, message, isSuccess } = useSelector(
     (state) => state.auth
   );
@@ -34,7 +36,7 @@ const Login = () => {
     }
     if (isSuccess && user) {
       toast.success("Login Sucessfull");
-      navigate("/");
+      navigate(from,{replace:true});
     }
     dispatch(reset());
   }, [isError, user, isSuccess, message, dispatch]);

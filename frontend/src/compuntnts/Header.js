@@ -13,7 +13,7 @@ const Header = () => {
   const logoutHandle = ()=>{
     dispatch(logout())
     dispatch(reset());
-    navigate('/');
+    navigate('/login');
   }
   return (
     <div className="grid grid-cols-2">

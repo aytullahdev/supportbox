@@ -9,7 +9,7 @@ const ticketSchema = mongoose.Schema({
     product:{
         type:String,
         required:[true,'Please Select a issue'],
-        enum:['React issue','Javascript issue','HTML issue','Css issue']
+        enum:['React','Javascript','HTML','CSS']
     },
     description:{
         type:String,

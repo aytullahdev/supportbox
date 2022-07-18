@@ -9,6 +9,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import CheckAuth from './compuntnts/CheckAuth';
 import Test from './pages/Test';
 import RequireAuth from './compuntnts/RequireAuth';
+import NewTickets from './pages/NewTickets';
+import Mytickets from './pages/Mytickets';
 function App() {
   return (
     <div className='container px-10 py-2'>
@@ -18,6 +20,8 @@ function App() {
         <Route path='/login' element={<CheckAuth><Login/></CheckAuth>}/>
         <Route path='/register' element={<CheckAuth><Register/></CheckAuth>}/>
         <Route path='/test' element={<RequireAuth><Test/></RequireAuth>}/>
+        <Route path='/new-ticket' element={<RequireAuth><NewTickets/></RequireAuth>}/>
+        <Route path='/my-tickets' element={<RequireAuth><Mytickets/></RequireAuth>}/>
       </Routes>
       <ToastContainer/>
     </div>

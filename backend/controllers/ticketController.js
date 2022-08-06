@@ -13,7 +13,7 @@ const getTickets = asyncHandler(async (req,res)=>{
         res.status(401)
         throw new Error("User Not found");
     }
-    const tickets = await Ticket.find({user:req.user.id});
+    const tickets = await Ticket.find({user:req.user.id}).sort({createdAt:-1});
     res.status(200).json({tickets});
 })
 

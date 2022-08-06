@@ -1,14 +1,16 @@
 import React from 'react';
-
-const SingleTicket = ({issue,status,desc,id}) => {
+import { NavLink } from 'react-router-dom';
+const SingleTicket = ({issue,status,date,id}) => {
     return (
         <div>
-            <div className=' grid grid-cols-4 bg-gray-200 justify-center items-center py-3 text-black px-2'>
+            <div className=' grid grid-cols-4 bg-white border-[1px] outline-none cursor-pointer hover:shadow-none justify-center items-center py-3 text-black px-2'>
                     <div>{issue}</div>
-                    <div className=''><span className={`${ status=='new'?'bg-green-400':status=='open'?'bg-blue-400':'bg-black'} p-3 rounded text-white`}>{status}</span></div>
-                    <div>{desc}</div>
+                    <div className=''><span className={`text-sm  uppercase ${ status=='new'?'bg-green-400':status=='open'?'bg-blue-400':'bg-red-500'} p-3 rounded text-white`}>{status}</span></div>
                     <div>
-                        <button className='hover:bg-black bg-gray-500 text-white p-2 rounded'>View Ticket</button>
+                        <p>{new Date(date).toLocaleDateString('en-US')}</p>
+                    </div>
+                    <div>
+                        <NavLink to={`/my-tickets/${id}`} className='hover:bg-orange-600 bg-orange-500 text-white p-2 rounded'>View Ticket</NavLink>
                     </div>
                 </div>
         </div>
